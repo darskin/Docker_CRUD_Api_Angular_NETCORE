@@ -1,0 +1,21 @@
+.card {
+  margin-top: 10px;
+}
+
+.right-align {
+  text-align: right;
+}
+
+input.right-align::-webkit-outer-spin-button,
+input.right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.right-align {
+  -moz-appearance: textfield;
+}
+
+mat-form-field {
+  width: 100%;
+  margin: 5px;
+}

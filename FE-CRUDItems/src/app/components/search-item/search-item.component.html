@@ -1,0 +1,18 @@
+<div class="title">
+  <h1>Item</h1>
+</div>
+<app-spinner *ngIf="loading"></app-spinner>
+<div *ngIf="item != null" class="container">
+  <mat-card class="card">
+    <mat-card-header class="d_block">{{ item.name }}</mat-card-header>
+    <mat-card-content>
+      <p><strong>Description:</strong> {{ item.description }}</p>
+      <p><strong>Price:</strong> {{ item.price }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button [routerLink]="['/listItem']" mat-icon-button color="accent">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
