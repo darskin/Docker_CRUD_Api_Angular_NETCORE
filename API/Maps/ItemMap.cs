@@ -9,7 +9,7 @@ namespace API.Maps
         public ItemMap(EntityTypeBuilder<Item> entityTypeBuilder)
         {
             entityTypeBuilder.HasKey(x => x.Id);
-            entityTypeBuilder.ToTable("item");
+            entityTypeBuilder.ToTable("Item");
 
             entityTypeBuilder.Property(x => x.Id).HasColumnName("id");
             entityTypeBuilder.Property(x => x.Name).HasColumnName("name");

@@ -3,7 +3,7 @@
 </div>
 <app-spinner *ngIf="loading"></app-spinner>
 
-<div *ngIf="dataSource.data.length > 0" class="container">
+<div class="container">
   <div class="mat-elevation-z8">
     <mat-form-field>
       <mat-label>Filter</mat-label>
@@ -15,7 +15,7 @@
         autocomplete="off"
       />
     </mat-form-field>
-    <table mat-table [dataSource]="dataSource" matSort>
+    <mat-table #table [dataSource]="dataSource" matSort>
       <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
@@ -63,7 +63,7 @@
             matTooltip="Edit"
           ></mat-icon>
           <mat-icon
-            (click)="deleteItem()"
+            (click)="deleteItem(element.id)"
             fontIcon="delete"
             class="delete"
             matTooltip="Delete"
@@ -73,10 +73,10 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+    </mat-table>
     <mat-paginator
       [pageSizeOptions]="[5, 10, 20]"
-      aria-label="Select page of items"
+      [showFirstLastButtons]="true"
     >
     </mat-paginator>
   </div>

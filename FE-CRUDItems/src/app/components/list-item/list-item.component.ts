@@ -29,9 +29,7 @@ export class ListItemComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.dataSource.data.length > 0) {
-      this.dataSource.paginator = this.paginator;
-    }
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
@@ -58,14 +56,19 @@ export class ListItemComponent implements OnInit, AfterViewInit {
     );
   }
 
-  deleteItem() {
+  deleteItem(id: number) {
     this.loading = true;
-    setTimeout(() => {
+    this._itemService.deleteItem(id).subscribe(() => {
+      this.successMessage();
       this.loading = false;
-      this._snackBar.open('The item was successfully deleted', '', {
-        duration: 3000,
-        horizontalPosition: 'right',
-      });
-    }, 3000);
+      this.getItems();
+    });
+  }
+
+  successMessage() {
+    this._snackBar.open('The item was successfully deleted', '', {
+      duration: 3000,
+      horizontalPosition: 'right',
+    });
   }
 }

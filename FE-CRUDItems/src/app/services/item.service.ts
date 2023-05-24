@@ -20,4 +20,16 @@ export class ItemService {
   getItem(id: number): Observable<Item> {
     return this.http.get<Item>(`${this.myAppUrl}${this.myApiUrl}${id}`);
   }
+
+  deleteItem(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+  }
+
+  addItem(item: Item): Observable<Item> {
+    return this.http.post<Item>(`${this.myAppUrl}${this.myApiUrl}`, item);
+  }
+
+  updateItem(id: number, item: Item): Observable<void> {
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrl}${id}`, item);
+  }
 }
