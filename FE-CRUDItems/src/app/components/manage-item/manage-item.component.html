@@ -12,12 +12,18 @@
           <mat-form-field [color]="colorControl.value!">
             <mat-label>Name</mat-label>
             <input formControlName="name" matInput autocomplete="off" />
+            <mat-hint align="start" *ngIf="nameError" class="color-red">
+              {{ nameError }}
+            </mat-hint>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
           <mat-form-field [color]="colorControl.value!">
             <mat-label>Description</mat-label>
             <input formControlName="description" matInput autocomplete="off" />
+            <mat-hint align="start" *ngIf="descriptionError" class="color-red">
+              {{ descriptionError }}
+            </mat-hint>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -32,6 +38,9 @@
             />
             <span matTextPrefix>$&nbsp;</span>
             <span matTextSuffix>.00</span>
+            <mat-hint align="start" *ngIf="priceError" class="color-red">
+              {{ priceError }}
+            </mat-hint>
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="2">

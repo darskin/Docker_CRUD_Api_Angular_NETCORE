@@ -24,6 +24,9 @@ export class ManageItemComponent implements OnInit {
   id: number;
   operation: string = 'Add';
   icon: string = 'add_circle';
+  nameError: string = '';
+  descriptionError: string = '';
+  priceError: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -87,10 +90,31 @@ export class ManageItemComponent implements OnInit {
 
   addItem(item: Item) {
     // Send object to Back-end
-    this._itemService.addItem(item).subscribe((data) => {
-      this.successMessage('The item was added successfully');
-      this.router.navigate(['/listItems']);
-    });
+
+    this._itemService.addItem(item).subscribe(
+      (data) => {
+        this.successMessage('The item was added successfully');
+        this.router.navigate(['/listItems']);
+      },
+      (error) => {
+        const errors = error.error.errors;
+        if (errors.Name) {
+          this.nameError = errors.Name[0];
+        } else {
+          this.nameError = '';
+        }
+        if (errors.Description) {
+          this.descriptionError = errors.Description[0];
+        } else {
+          this.descriptionError = '';
+        }
+        if (errors.Price) {
+          this.priceError = errors.Price[0];
+        } else {
+          this.priceError = '';
+        }
+      }
+    );
   }
   successMessage(text: string) {
     this._snackBar.open(text, '', {

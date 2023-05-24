@@ -1,4 +1,9 @@
 .card {
   margin-top: 5px;
-  text-align: center;
+  text-align: left;
+  border-color: rgb(251, 68, 130);
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: 10px 10px rgb(251, 68, 130);
+  /* box-shadow: 0 4px 8px 0 rgb(251, 68, 130), 0 6px 20px 0 rgb(251, 68, 130); */
 }

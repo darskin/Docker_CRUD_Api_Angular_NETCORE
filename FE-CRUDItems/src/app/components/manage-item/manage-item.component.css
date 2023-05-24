@@ -19,3 +19,7 @@ mat-form-field {
   width: 100%;
   margin: 5px;
 }
+
+.color-red {
+  color: red;
+}
