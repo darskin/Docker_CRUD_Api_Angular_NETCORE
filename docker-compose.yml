@@ -1,0 +1,67 @@
+version: "3.8"
+
+networks:
+  cruditem:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      DATABASE_HOST: "127.0.0.1"
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: "storedb"
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+      - ./API/DBscripts/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+    networks:
+      - cruditem
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "90:80"
+    depends_on:
+      - postgres
+    networks:
+      - cruditem
+  api:
+    image: api
+    build:
+      context: ./API
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:80
+      - 3000:443
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DB_CONNECTION_STRING: "host=postgres;port=5432;database=storedb;username=root;password=1234"
+      ASPNETCORE_URLS: "http://+:443;http://+:80"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - postgres
+    networks:
+      - cruditem
+
+  angular:
+    image: angular
+    build:
+      context: ./FE-CRUDItems
+      dockerfile: ./Dockerfile
+    ports:
+      - 4200:80
+    depends_on:
+      - api
+    networks:
+      - cruditem
+volumes:
+  db_volume:
